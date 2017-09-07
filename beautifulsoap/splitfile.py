@@ -23,21 +23,22 @@ def split_file(filename):
     xmlnum = []
     end_pos = 0
     start_pos = 0
+    current_pos = 0
     file = open(PATENTS, 'r')
     for number, content in enumerate(file):
         if content.startswith("<?xml"):
             xmlnum.append(number)
-    for num in xmlnum:
-        print num
 
-    for i in range(len(xmlnum)):
+    for i in range(len(xmlnum) - 1):
         splitfile = "{}-{}".format(PATENTS, i)
-
-        end_pos = xmlnum[i]
-        write_f = open(splitfile, 'w')
-        content = write_f.getline()
-
         start_pos = end_pos
+        current_pos = end_pos
+        with open(PATENTS, 'r') as f:
+            for line in f:
+                current_pos += 1
+                end_pos = xmlnum[i + 1]
+                if current_pos >= start_pos and current_pos <= end_pos:
+                    print line
 
 
 def test():

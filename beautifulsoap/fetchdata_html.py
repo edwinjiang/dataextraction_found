@@ -7,7 +7,7 @@ import requests
 import re
 
 DATADIR = ""
-DATAFILE = "awrrpt_10.110.82.232_rac_718_719_201709071003.html"
+DATAFILE = "awrrpt_10.110.82.232_rac_722_723_201709071114.html"
 
 def extract_data(file):
     data = []
@@ -30,7 +30,7 @@ def extract_data(file):
         for i in range(len(data)):
             if pattern1.search(data[i]["name"]):
                 print data[i]["name"]
-                total += data[i]["per trans"]
+                total += data[i]["per second"]
         print float(total)
 
 
