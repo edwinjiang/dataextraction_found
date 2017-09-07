@@ -7,7 +7,7 @@ import requests
 import re
 
 DATADIR = ""
-DATAFILE = "awr_rac.html"
+DATAFILE = "awrrpt_10.110.82.232_rac_718_719_201709071003.html"
 
 def extract_data(file):
     data = []
@@ -16,7 +16,7 @@ def extract_data(file):
         soup = BeautifulSoup(f,'lxml')
         pattern = re.compile(r'^physical')
         pattern1 = re.compile(r'total IO requests')
-        for rawdata in soup.find_all('table',summary="System Statistics (Global). . per Second Average - average of per-instance per Second rates. per Second Std Dev - standard deviation of per-instance per Second rates. per Second Min - minimum of per-instance per Second rates. per Second Max - maximum of per-instance per Second rates"):
+        for rawdata in soup.find_all('table'):
             trdatas =  rawdata.find_all(name='tr')
             for trdata in trdatas:
                 tddatas = BeautifulSoup(str(trdata), "html.parser")
@@ -30,7 +30,7 @@ def extract_data(file):
         for i in range(len(data)):
             if pattern1.search(data[i]["name"]):
                 print data[i]["name"]
-                total += data[i]["total"]
+                total += data[i]["per trans"]
         print float(total)
 
 
