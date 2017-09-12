@@ -5,17 +5,21 @@ from bs4 import BeautifulSoup
 import os
 import requests
 import re
+import argparse
 
 DATADIR = ""
 DATAFILE = "awrrpt_10.110.82.232_rac_722_723_201709071114.html"
 
-def extract_data(file):
+def extract_data(**kwargs):
     data = []
     total = 0
-    with open(file) as f:
+    awrfile = os.path.join(DATADIR, kwargs["file"])
+    print kwargs["metric"]
+    with open(awrfile) as f:
         soup = BeautifulSoup(f,'lxml')
-        pattern = re.compile(r'^physical')
-        pattern1 = re.compile(r'total IO requests')
+        pattern = re.compile(r'physical')
+        pattern1 = re.compile(kwargs["metric"])
+        #pattern1 = re.compile(r'total IO requests$')
         for rawdata in soup.find_all('table'):
             trdatas =  rawdata.find_all(name='tr')
             for trdata in trdatas:
@@ -33,10 +37,13 @@ def extract_data(file):
                 total += data[i]["per second"]
         print float(total)
 
-
-def fetch():
-    awrfile = os.path.join(DATADIR, DATAFILE)
-    extract_data(awrfile)
+def _argparser():
+    parser = argparse.ArgumentParser(description='AWR Data Analyze')
+    parser.add_argument('-f','--file', action='store', dest='file', required=True, help='AWR File Name')
+    parser.add_argument('-m','--metric', action='store', dest='metric', required=True, help='Metric Name')
+    return parser.parse_args()
 
 if __name__ == "__main__":
-    fetch()
+    parser = _argparser()
+    conn_args = dict(file=parser.file, metric=parser.metric)
+    extract_data(**conn_args)

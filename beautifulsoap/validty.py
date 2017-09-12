@@ -8,7 +8,7 @@ INPUT_FILE = 'autos.csv'
 OUTPUT_GOOD = 'autos-valid.csv'
 OUTPUT_BAD = 'FIXME-autos.csv'
 
-#skip n lines of CSV files 
+#skip n lines of CSV files
 # def skip_lines(input_file,skip):
 #     for i in range(0,skip):
 #         next(input_file)
