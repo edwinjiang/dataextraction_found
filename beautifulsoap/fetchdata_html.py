@@ -7,6 +7,7 @@ import requests
 import re
 import argparse
 from ConfigParser import SafeConfigParser
+import json
 
 DATADIR = ""
 DATAFILE = "awrrpt_10.110.82.232_rac_722_723_201709071114.html"
@@ -17,6 +18,7 @@ DATAFILE = "awrrpt_10.110.82.232_rac_722_723_201709071114.html"
 # db file sequential read time and db file scattered read time
 def extract_data(**kwargs):
     data = []
+    result = {}
     total = 0
     awrfile = os.path.join(DATADIR, kwargs["file"])
 
@@ -45,12 +47,17 @@ def extract_data(**kwargs):
                             data.append({'name':tddata[0].string,'total':float(tddata[1].string.replace(',','')),'per second':float(tddata[2].string.replace(',','')),'per trans':float(tddata[3].string.replace(',',''))})
                     except:
                         pass
-            print data
+            #print data
             for i in range(len(data)):
                 if pattern1.search(data[i]["name"]):
-                    print data[i]["name"]
+                    #print data[i]["name"]
                     total += data[i]["per second"]
-            print float(total)
+                    result[data[i]["name"]] = data[i]["per second"]
+            result["Total"] = total
+            #print type(result)
+            json_dic1 = json.dumps(result)
+            #print type(json_dic1)
+            print json_dic1
 
 def _argparser():
     parser = argparse.ArgumentParser(description='AWR Data Analyze')
