@@ -6,6 +6,7 @@ import csv
 import json
 import pprint
 import re
+from contextlib import contextmanager
 
 DATAFILE = 'arachnid.csv'
 FIELDS = {'rdf-schema#label': 'label',
@@ -20,12 +21,19 @@ FIELDS = {'rdf-schema#label': 'label',
           'kingdom_label': 'kingdom',
           'genus_label': 'genus'}
 
+# @contextmanager
+# def open(filename, mode='r'):
+#     fp= open(filename, mode)
+#     try:
+#         yield fp
+#     finally:
+#         fp.close()
 
 def process_file(filename, fields):
     process_fields = fields.keys()
     data = []
 
-    with open(filename, "r") as f:
+    with open(filename,'r') as f:
         reader = csv.DictReader(f)
         for i in range(3):
             l = reader.next()
