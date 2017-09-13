@@ -46,6 +46,16 @@ def make_pipeline():
     #             {"$sort":{"count":-1}},
     #             {"$limit":1}]
     # # return pipeline
+
+    # pipeline = [{"$group": {"_id": "$user.screen_name",
+    #                         "tweet_texts": {"$push": "$text"},
+    #                         "count": {"$sum": 1}}},
+    #             {"$sort": {"count": -1}},
+    #             {"$limit": 5}]
+    #
+    #
+    # return pipeline
+
     return pipeline
 
 def aggregate(db, pipeline):
