@@ -15,12 +15,17 @@ def count_tags(filename):
             'relation': 0,
             'tag': 0,
             'way': 0}
+    # for event, elem in ET.iterparse(filename,events=("start",)):
+    #  if  elem.tag == "way":
+    #     for tag in elem.iter("tag"):
+    #
     for event, elem in context:
         data[elem.tag] += 1
     return data
 
 
 def test():
+
     tags = count_tags('example.osm')
     pprint.pprint(tags)
     assert tags == {'bounds': 1,
