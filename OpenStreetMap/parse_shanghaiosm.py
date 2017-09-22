@@ -12,7 +12,7 @@ import httplib
 import md5
 import urllib
 import random
-
+from pymongo import MongoClient
 
 OSMFILE = "shanghai_sample_k50.osm"
 CREATED = ["version", "changeset", "timestamp","uid"]
@@ -129,5 +129,22 @@ def parsedata():
     data = process_map(OSMFILE, True)
     pprint.pprint(data)
 
+def insert_data(data, db):
+
+    # Your code here. Insert the data into a collection 'arachnid'
+    for realdata in data:
+        db.arachnid.save(realdata)
+
 if __name__ == "__main__":
-    parsedata()
+    #parsedata()
+    client = MongoClient("mongodb://127.0.0.1:27017")
+    db = client.examples
+    file_out = "{0}.json".format("Shanghai_osm_data")
+    with open("example.osm.json",'r') as f:
+        for line in f.readlines():
+            print line
+            data = json.loads(line)
+
+            #insert_data(data, db)
+            #print db.arachnid.find_one()
+
