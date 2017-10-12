@@ -4,13 +4,14 @@
 from bs4 import BeautifulSoup
 import os
 import requests
+import pprint
 import re
 import argparse
 from ConfigParser import SafeConfigParser
 import json
 
 DATADIR = ""
-DATAFILE = "awrrpt_10.110.82.232_rac_722_723_201709071114.html"
+DATAFILE = ""
 # IO metrics
 # physical reads io requests and physical read multiblock io requests and physical write IO requests and physical write multiblock IO request  redo writes    iops
 # physical read total bytes ,  physical write total bytes, physical multiblock read total bytes, physical multibkock write total bytes, redo size   mbytes
@@ -26,16 +27,23 @@ def extract_data(**kwargs):
         soup = BeautifulSoup(f,'lxml')
         # parse metric configure file
         metric_parser = SafeConfigParser(allow_no_value=True)
+
         metric_parser.read('metric.conf')
+        # parse metric configure file, store each metric name to list
         for section_name in metric_parser.sections():
             # print('Section:', section_name)
             # print('Options:', metric_parser.options(section_name))
             metric_item=[]
+
             for name, value in metric_parser.items(section_name):
                 metric_item.append(value)
             pattern = re.compile(metric_item[1])
             #pattern1 = re.compile(kwargs["metric"])
+            print metric_item[1]
             pattern1 = re.compile(metric_item[2])
+
+
+            #IOPs calculation:
 
             for rawdata in soup.find_all('table'):
                 trdatas =  rawdata.find_all(name='tr')
@@ -57,7 +65,11 @@ def extract_data(**kwargs):
             #print type(result)
             json_dic1 = json.dumps(result)
             #print type(json_dic1)
-            print json_dic1
+            pprint.pprint(json_dic1)
+
+            #IOP and Throughput calculation for OLAP
+
+
 
 def _argparser():
     parser = argparse.ArgumentParser(description='AWR Data Analyze')

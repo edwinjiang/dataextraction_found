@@ -1,0 +1,29 @@
+IO Metric
+physical write total IO requests,physical read total IO requests
+3197.22,6562.8
+physical write total bytes,physical read total bytes
+58495523.06,60618978.19
+"
+"
+IO latency
+IO Wait Event,Avg Wait Time,Waits
+db file parallel read,695.57us,"815,836"
+db file sequential read,403.35us,"6,417,241"
+control file sequential read,168.77us,"2,275"
+log file parallel write,239.81us,"1,155,522"
+control file parallel write,291.69us,"1,857"
+"
+"
+CPU utilization
+Instance#,1
+%Busy,10.35
+Instance#,1
+%Usr,7.38
+%Sys,2.46
+Instance#,1
+Instance#,2
+%Busy,9.82
+Instance#,2
+%Usr,7.15
+%Sys,2.25
+Instance#,2
