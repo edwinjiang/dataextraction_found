@@ -1,12 +1,8 @@
 #!/usr/bin/python
 #encoding:utf8
-
 import xml.etree.cElementTree as ET
-import pprint
-import re
 import codecs
 import json
-import sys
 from pypinyin import lazy_pinyin
 import httplib
 import md5
@@ -45,7 +41,7 @@ def translate_func(text):
         if httpClient:
             httpClient.close()
 
-def process_chinese_name(element):
+def process_osm_data(element):
     node = {}
     temp = {}
     refs_temp = []
@@ -116,35 +112,25 @@ def process_map(osm_file,pretty=False):
     data = []
     with codecs.open(file_out, "w","utf-8") as fo:
         for _, element in ET.iterparse(osm_file):
-            el = process_chinese_name(element)
+            el = process_osm_data(element)
             if el:
                 data.append(el)
                 if pretty:
-                    fo.write(json.dumps(el,encoding='utf-8',ensure_ascii=False,indent=2) + "\n")
+                    fo.write(json.dumps(el,encoding='utf-8',ensure_ascii=False,indent=2))
                 else:
-                    fo.write(json.dumps(el,encoding='utf-8',ensure_ascii=False) + "\n")
+                    fo.write(json.dumps(el,encoding='utf-8',ensure_ascii=False))
     return data
 
 def parsedata():
     data = process_map(OSMFILE, True)
-    pprint.pprint(data)
+    client = MongoClient("mongodb://127.0.0.1:27017")
+    db = client.shaosm
+    #db.shaosm.remove()
+    insert_data(data, db)
 
 def insert_data(data, db):
-
-    # Your code here. Insert the data into a collection 'arachnid'
     for realdata in data:
-        db.arachnid.save(realdata)
+        db.mapdata.save(realdata)
 
 if __name__ == "__main__":
-    #parsedata()
-    client = MongoClient("mongodb://127.0.0.1:27017")
-    db = client.examples
-    file_out = "{0}.json".format("Shanghai_osm_data")
-    with open("example.osm.json",'r') as f:
-        for line in f.readlines():
-            print line
-            data = json.loads(line)
-
-            #insert_data(data, db)
-            #print db.arachnid.find_one()
-
+    parsedata()
