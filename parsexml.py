@@ -17,13 +17,18 @@ def get_authors(root):
         data = {
             "fnm": None,
             "snm": None,
-            "email": None
+            "email": None,
+            "insr" : []
         }
 
         # YOUR CODE HERE
-        data["fnm"] = author.find("./fnm").text
-        data["snm"] = author.find("./snm").text
-        data["email"] = author.find("./email").text
+        data["fnm"] = author.find('./fnm').text
+        data["snm"] = author.find('./snm').text
+        data["email"] = author.find('./email').text
+        insr = author.findall('./insr')
+        for i in insr:
+            data["insr"].append(i.attrib["iid"])
+
         authors.append(data)
 
     return authors

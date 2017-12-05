@@ -1,0 +1,20 @@
+1) download python 3.6.1 form python.org
+2) install it on windows
+3) cmd to type and quick test
+	python --version
+4) still some modules to load
+	pip install BeautifulSoup4
+	pip install requests
+	pip install ConfigParser
+	pip install --upgrade virtualenv
+5) Edit system variable to add Python install Path (optional)
+6) copy fetchmetric_awr_M.py and an example AWR report to current directory 
+7) python fetchmetric_awr_M.py  -f   awrrpt_rac_xxx. html
+8) check the output file (one cvf file,  open it with execl)
+
+
+Good luck!
+
+
+
+	

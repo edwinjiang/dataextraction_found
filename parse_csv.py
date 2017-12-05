@@ -10,6 +10,7 @@ number = 10
 
 def parse_file(datafile):
     data = []
+
     raw_data = pd.read_csv(datafile, nrows=number).fillna(value='').to_dict(orient='dict')
     for i in range (number):
         data.append({'Title':raw_data['Title'][i],'UK Chart Position':raw_data['UK Chart Position'][i],'Label':raw_data ['Label'][i],'Released':raw_data ['Released'][i],'US Chart Position':raw_data['US Chart Position'][i],'RIAA Certification':raw_data['RIAA Certification'][i],'BPI Certification':raw_data['BPI Certification'][i]})

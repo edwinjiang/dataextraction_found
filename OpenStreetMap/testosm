@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm>
+  <node changeset="48129029" id="25926073" lat="30.2795316" lon="120.1653172" timestamp="2017-04-25T15:21:06Z" uid="2607646" user="AUV" version="7">
+		<tag k="highway" v="traffic_signals" />
+		<tag k="traffic_signals" v="signal" />
+	</node>
+	<node changeset="43980508" id="26056789" lat="30.2719244" lon="120.1829467" timestamp="2016-11-27T10:40:44Z" uid="2607646" user="AUV" version="2" />
+	</osm>

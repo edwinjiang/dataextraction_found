@@ -1,3 +1,10 @@
+DB Name,DB1TP
+"
+"
+Begin SnapShot,231
+End SnapShot,232
+"
+"
 IO Metric
 physical write total IO requests,physical read total IO requests
 3197.22,6562.8
@@ -17,13 +24,9 @@ control file parallel write,291.69us,"1,857"
 CPU utilization
 Instance#,1
 %Busy,10.35
-Instance#,1
 %Usr,7.38
 %Sys,2.46
-Instance#,1
 Instance#,2
 %Busy,9.82
-Instance#,2
 %Usr,7.15
 %Sys,2.25
-Instance#,2

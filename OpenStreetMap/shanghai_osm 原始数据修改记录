@@ -1,0 +1,64 @@
+1 oneway is not consistent:
+    
+    1） k=oneway的v值不统一，根据http://wiki.openstreetmap.org/wiki/Way 的说明，应该为yes，将不是yes的值改为yes
+    
+    <tag k="name" v="泰山西路" />
+		<tag k="layer" v="1" />
+		<tag k="bridge" v="yes" />
+		<tag k="oneway" v="-1" />
+		<tag k="highway" v="primary" />
+		
+		
+		
+		<nd ref="1837302618" />
+		<nd ref="1837302617" />
+		<nd ref="1805883932" />
+		<tag k="name" v="龙潭山路" />
+		<tag k="oneway" v="yes" />
+		<tag k="highway" v="tertiary" />
+		
+    2）highway和Hwy 不一致，需要转换Hwy到highway		
+		<tag k="name:en" v="Yunchuan Highway" />
+	
+		<tag k="name" v="蕰川公路" />
+		<tag k="lanes" v="3" />
+		<tag k="oneway" v="yes" />
+		<tag k="highway" v="primary" />
+		<tag k="name:en" v="Yunchuan Hwy." />		
+		
+2 when tga is k="name",  it should be include <tag k="name:en" 。 
+  采用baidu翻译API接口进行翻译。添加新的k="name.en"
+  http://api.fanyi.baidu.com/api/trans/product/index
+
+3 将汉字的挑选出来,并转换成拼音,不考虑多音字模式，用 lazy_pinyin方法转换
+https://github.com/mozillazg/python-pinyin
+
+pip install pypinyin
+
+<tag k="railway" v="subway" />
+<tag k="highway" v="residential" />  k="highway" v="bus_stop"   
+k="cycleway"
+k="amenity"  restaurant  bicycle_rental
+k="shop"
+
+
+注意事项:
+当json中dumps中文的时注意一下两点：
+1 with codecs.open(file_out, "w","utf-8") as fo:
+2 json.dumps(el,encoding='utf-8',ensure_ascii=False)
+
+
+提交
+
+准备好提交项目了吗？请收集以下文件：
+
+    一份 pdf 文档，包含你对评估准则问题的回答且应记录你的数据整理过程。
+
+    “案例研究：OpenStreetMap 数据”测试题的 Python 代码，以及你在审查和清理最终项目的数据集时使用的其他任何代码。
+
+    一份文本文件，包含你在项目中整理的地图位置的链接、对该地区的简短描述以及你做出选择的原因。
+
+    一份 .osm 文件，包含你使用的地图区域的样本（大小约为1 - 10MB）。请参阅以下注解。
+
+    一份文本文件，包含你在提交该项目的过程中参考或使用的网站、书籍、论坛、博客帖子、GitHub 代码库等的列表（如果你未使用此类资源，则请添加“无”）。
+jtsuperman703@gmail.com 

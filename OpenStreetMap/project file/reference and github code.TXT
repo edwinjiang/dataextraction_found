@@ -1,0 +1,14 @@
+一 参考文档及地址：
+1 将汉字的挑选出来,并转换成拼音,不考虑多音字模式，用 lazy_pinyin方法转换
+https://github.com/mozillazg/python-pinyin
+2  采用baidu翻译API接口进行翻译。添加新的k="name.en"，v=翻译结果
+  http://api.fanyi.baidu.com/api/trans/product/index
+  Python DEMO:
+  http://appcdn.fanyi.baidu.com/api/demo/python.zip
+
+二XML转换成JSON格式时，包含中文的处理办法：
+在json中dumps的时候注意以下两点：
+1 打开文件时需要支持UTF-8，例如：
+    with codecs.open(file_out, "w","utf-8") as fo
+2 dump时需要支持UTF-8
+    json.dumps(el,encoding='utf-8',ensure_ascii=False)
